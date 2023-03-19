@@ -17,6 +17,7 @@ namespace Alura.ListaLeitura.App.Logica
 
         public static Task ProcessaFormulario(HttpContext context)
         {
+            var html = HtmlUtils.CarregaArquivoHTML("resposta-formulario");
             var livro = new Livro()
             {
                 Titulo = context.Request.Form["titulo"].First(),
@@ -25,7 +26,8 @@ namespace Alura.ListaLeitura.App.Logica
 
             var repo = new LivroRepositorioCSV();
             repo.Incluir(livro);
-            return context.Response.WriteAsync("O livro foi adicionado com sucesso");
+
+            return context.Response.WriteAsync(html.Replace("#MENSAGEM#", "O livro foi adicionado com sucesso"));
         }
 
         public static Task ExibeFormulario(HttpContext context)
