@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,17 +23,53 @@ namespace Alura.ListaLeitura.App
         public void Configure(IApplicationBuilder app)
         {
             var builder = new RouteBuilder(app);
+            builder.MapRoute("", IndexPage);
             builder.MapRoute("Livros/ParaLer", LivrosParaLer);
             builder.MapRoute("Livros/Lendo", LivrosLendo);
             builder.MapRoute("Livros/Lidos", LivrosLidos);
-            builder.MapRoute("Cadastro/NovoLivro/{nome}/{autor}", NovoLivroParaLer);
+            builder.MapRoute("Cadastro/NovoLivro/{titulo}/{autor}", NovoLivroParaLer);
             builder.MapRoute("Livros/Detalhes/{id:int}", ExibirDetalhes);
+            builder.MapRoute("Cadastro/NovoLivro", ExibirFormulario);
+            builder.MapRoute("Cadastro/Incluir", ProcessaFormulario);
 
             var rotas = builder.Build();
 
             app.UseRouter(rotas);
+        }
 
-            //app.Run(Roteamento);
+        private Task IndexPage(HttpContext context)
+        {
+            var html = CarregaArquivoHTML("index");
+            return context.Response.WriteAsync(html);
+        }
+
+        private Task ExibirFormulario(HttpContext context)
+        {
+            var html = CarregaArquivoHTML("formulario");
+            return context.Response.WriteAsync(html);
+        }
+
+        private string CarregaArquivoHTML(string nomeArquivo)
+        {
+            var nomeCompletoArquivo = $"View/{nomeArquivo}.html";
+            using (var arquivo = File.OpenText(nomeCompletoArquivo)) 
+            {
+                return arquivo.ReadToEnd();
+            }
+        }
+
+        private Task ProcessaFormulario(HttpContext context)
+        {
+            var livro = new Livro()
+            {
+                Titulo = context.Request.Form["titulo"].First(),
+                Autor = context.Request.Form["autor"].First()
+            };
+
+            var repo = new LivroRepositorioCSV();
+            repo.Incluir(livro);
+
+            return context.Response.WriteAsync("O livro foi adicionado com sucesso.");
         }
 
         private Task ExibirDetalhes(HttpContext context)
@@ -49,7 +87,7 @@ namespace Alura.ListaLeitura.App
         {
             var livro = new Livro()
             {
-                Titulo = context.GetRouteValue("nome").ToString(),
+                Titulo = context.GetRouteValue("titulo").ToString(),
                 Autor = context.GetRouteValue("autor").ToString()
             };
 

@@ -2,6 +2,7 @@
 using Alura.ListaLeitura.App.Repositorio;
 using System;
 using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
 
 namespace Alura.ListaLeitura.App
 {
@@ -16,11 +17,8 @@ namespace Alura.ListaLeitura.App
                 .UseStartup<Startup>()
                 .Build();
 
-            host.Run();
 
-            //ImprimeLista(_repo.ParaLer);
-            //ImprimeLista(_repo.Lendo);
-            //ImprimeLista(_repo.Lidos);
+            host.Run();
         }
 
         static void ImprimeLista(ListaDeLeitura lista)
