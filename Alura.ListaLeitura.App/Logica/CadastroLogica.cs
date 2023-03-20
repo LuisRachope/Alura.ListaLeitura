@@ -14,8 +14,13 @@ namespace Alura.ListaLeitura.App.Logica
 {
     public class CadastroLogica
     {
+        public static Task IndexPage(HttpContext context)
+        {
+            var html = HtmlUtils.CarregaArquivoHTML("index");
+            return context.Response.WriteAsync(html);
+        }
 
-        public static Task ProcessaFormulario(HttpContext context)
+        public static Task Incluir(HttpContext context)
         {
             var html = HtmlUtils.CarregaArquivoHTML("resposta-formulario");
             var livro = new Livro()
@@ -28,16 +33,12 @@ namespace Alura.ListaLeitura.App.Logica
             repo.Incluir(livro);
 
             return context.Response.WriteAsync(html.Replace("#MENSAGEM#", "O livro foi adicionado com sucesso"));
+
         }
 
-        public static Task ExibeFormulario(HttpContext context)
+        public static Task ProcessaFormulario(HttpContext context)
         {
-            var html = HtmlUtils.CarregaArquivoHTML("formulario");
-            return context.Response.WriteAsync(html);
-        }
-
-        public static Task NovoLivroParaLer(HttpContext context)
-        {
+            var html = HtmlUtils.CarregaArquivoHTML("resposta-formulario");
             var livro = new Livro()
             {
                 Titulo = Convert.ToString(context.GetRouteValue("nome")),
@@ -46,13 +47,13 @@ namespace Alura.ListaLeitura.App.Logica
 
             var repo = new LivroRepositorioCSV();
             repo.Incluir(livro);
-            return context.Response.WriteAsync("O livro foi adicionado com sucesso");
 
+            return context.Response.WriteAsync(html.Replace("#MENSAGEM#", "O livro foi adicionado com sucesso"));
         }
 
-        public static Task IndexPage(HttpContext context)
+        public static Task ExibeFormulario(HttpContext context)
         {
-            var html = HtmlUtils.CarregaArquivoHTML("index");
+            var html = HtmlUtils.CarregaArquivoHTML("formulario");
             return context.Response.WriteAsync(html);
         }
     }
