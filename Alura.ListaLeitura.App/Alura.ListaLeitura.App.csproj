@@ -21,9 +21,6 @@
 		<Compile Update="Controllers\LivrosController.cs">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Compile>
-		<Compile Update="Mvc\RoteamentoPadrao.cs">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Compile>
 		<Compile Update="Model\ListaDeLeitura.cs">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Compile>
@@ -39,13 +36,7 @@
 		<Compile Update="Repositorio\LivroRepositorioCSV.cs">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Compile>
-		<Compile Update="Repositorio\LivroRepositorioFake.cs">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Compile>
 		<Compile Update="Startup.cs">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Compile>
-		<Compile Update="Views\HtmlUtils.cs">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Compile>
 	</ItemGroup>

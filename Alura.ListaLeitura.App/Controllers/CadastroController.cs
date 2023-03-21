@@ -1,5 +1,4 @@
-﻿using Alura.ListaLeitura.App.View;
-using Alura.ListaLeitura.App.Model;
+﻿using Alura.ListaLeitura.App.Model;
 using Alura.ListaLeitura.App.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,8 +10,6 @@ namespace Alura.ListaLeitura.App.Controllers
 
         public IActionResult Incluir(Livro livro)
         {
-            
-
             var repo = new LivroRepositorioCSV();
             repo.Incluir(livro);
 

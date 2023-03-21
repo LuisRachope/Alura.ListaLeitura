@@ -1,10 +1,7 @@
-﻿using Alura.ListaLeitura.App.View;
-using Alura.ListaLeitura.App.Model;
-using Microsoft.AspNetCore.Http;
+﻿using Alura.ListaLeitura.App.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Alura.ListaLeitura.App.Repositorio;
 
 namespace Alura.ListaLeitura.App.Controllers
@@ -44,17 +41,11 @@ namespace Alura.ListaLeitura.App.Controllers
             return View("lista");
         }
 
-
         public string Detalhes(int id)
         {
             var _repo = new LivroRepositorioCSV();
             var livro = _repo.Todos.First(l => l.Id == id);
             return livro.Detalhes();
-        }
-
-        public string Teste()
-        {
-            return "Nova funcionalidade implementada!";
         }
     }
 }
