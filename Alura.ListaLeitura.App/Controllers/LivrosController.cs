@@ -14,14 +14,6 @@ namespace Alura.ListaLeitura.App.Controllers
         public IEnumerable<Livro> Livros { get; set; }
         public string Titulo { get; set; }
 
-        public static string CarregaLista(IEnumerable<Livro> livros, string titulo)
-        {
-            var conteudoArquivo = HtmlUtils.CarregaArquivoHTML("lista");
-            conteudoArquivo = conteudoArquivo.Replace("#TITULO#", titulo);
-
-            return conteudoArquivo.Replace("#NOVO-ITEM#", "");
-        }
-
         public IActionResult ParaLer()
         {
             ViewBag.Titulo = "Lista de livros:";
@@ -42,7 +34,7 @@ namespace Alura.ListaLeitura.App.Controllers
             return View("lista");
         }
 
-        public IActionResult Lidos(HttpContext context)
+        public IActionResult Lidos()
         {
             ViewBag.Titulo = "Lista de livros lidos:";
 

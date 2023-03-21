@@ -7,25 +7,28 @@ namespace Alura.ListaLeitura.App.Controllers
 {
     public class CadastroController : Controller
     {
+        public string Mensagem { get; set; }
+
         public IActionResult Incluir(Livro livro)
         {
+            
+
             var repo = new LivroRepositorioCSV();
             repo.Incluir(livro);
 
-            var html = HtmlUtils.CarregaArquivoHTML("resposta-formulario").Replace("#MENSAGEM#", "O livro foi adicionado com sucesso");
+            if (repo is null)
+            {
+                ViewBag.Mensagem = "Erro ao tentar adicionar um novo livro.";
+            }
 
-            var view = new ViewResult { ViewName = "resposta-formulario" };
+            ViewBag.Mensagem = "O livro foi adicionado com sucesso";
 
-            return view;
+            return View("resposta-formulario");
         }
 
         public IActionResult ExibeFormulario()
         {
-            // HtmlUtils.CarregaArquivoHTML("formulario")
-
-            var html = new ViewResult { ViewName = "formulario" };
-
-            return html;
+            return View("formulario");
         }
     }
 }
