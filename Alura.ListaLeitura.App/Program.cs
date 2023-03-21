@@ -1,4 +1,4 @@
-﻿using Alura.ListaLeitura.App.Negocio;
+﻿using Alura.ListaLeitura.App.Model;
 using Alura.ListaLeitura.App.Repositorio;
 using System;
 using Microsoft.AspNetCore.Hosting;
@@ -18,15 +18,6 @@ namespace Alura.ListaLeitura.App
                 .Build();
 
             host.Run();
-
-            //ImprimeLista(_repo.ParaLer);
-            //ImprimeLista(_repo.Lendo);
-            //ImprimeLista(_repo.Lidos);
-        }
-
-        static void ImprimeLista(ListaDeLeitura lista)
-        {
-            Console.WriteLine(lista);
         }
     }
 }
